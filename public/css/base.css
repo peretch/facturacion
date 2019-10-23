@@ -1,0 +1,28 @@
+a:hover{
+    text-decoration: none;
+}
+
+a:focus{
+    text-decoration: none;
+}
+
+.alert-success {
+    background-color: #73a25f;
+    border-color: #4a7b20;
+    color: #fdfffd;
+}
+
+.btn-success {
+    background-color: #73a25f;
+    border-color: #4a7b20;
+    color: #fdfffd;
+}
+
+.alert {
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+.div-detalle-comprobante{
+  height: 300px;    
+}

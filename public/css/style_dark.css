@@ -1,0 +1,204 @@
+.{
+	background-color: #000;  
+}
+
+.logo{  
+  height: 50px;
+}
+
+.default_logo{
+  content:url("../img/logo_gray.png");
+}
+
+body{
+	background-color: #0f0f0f;
+  color: #dddddd;
+}
+
+.panel{
+	background-color: #2b2929;
+  border-color: #414141;
+}
+
+.panel-body{
+  margin-top: 0px;
+  padding-top: 8px;
+}
+
+.panel-default>.panel-heading {
+	color: #fff;
+	#background-color: #bb9898;
+	background-color: #202020;
+	border-color: #d3e0e9;
+}
+
+.navbar-default .navbar-collapse, .navbar-default .navbar-form {
+	border-color: #000;
+	background-color: #333;
+}
+
+.navbar-default {
+	background-color: #333;
+	border-color: #222222;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #204555;
+	border-color: #325d66;
+}
+
+.btn-primary {
+	color: #fff;
+	background-color: #204555;
+	border-color: #1d3c43;
+}
+
+a {
+	color: #288383;
+	text-decoration: none;
+}
+
+.btn-link{
+	color: #288383;
+}
+
+.pagination>li>a, .pagination>li>span {    
+	color: #2C3949    
+}
+.pagination>li>a:hover{
+	color: #aaa;
+}
+.pagination>.disabled>a, .pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover {
+	color: #2C3949;    
+}
+pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {    
+	color: #fff;
+	background-color: #2C3949;
+	border-color: #2C3949;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
+	color: #c5c5c5;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {    
+	color: #dadada;    
+}
+
+legend {
+	display: block;
+	width: 100%;
+	margin-bottom: 22px;
+	font-size: 21px;
+	line-height: inherit;
+	color: #ffffff;
+	border-bottom: 1px solid #e5e5e5;
+}
+
+h3{
+  color: #dedede;
+}
+
+.fa-stack[data-count]:after{
+  position:absolute;
+  right:0%;
+  top:1%;
+  content: attr(data-count);
+  font-size:30%;
+  padding:.6em;
+  border-radius:999px;
+  line-height:.75em;
+  color: white;
+  background:rgba(255,0,0,.85);
+  text-align:center;
+  min-width:2em;
+  font-weight:bold;
+}
+
+
+
+.list-group-item {
+	background-color: #262626;
+	border: 1px solid #262626;
+}
+
+a.list-group-item, button.list-group-item {
+  color: #dfdfdf;
+  background-color: #393939;
+  border-color: #222;
+}
+
+a.list-group-item:hover, button.list-group-item:hover {
+  color: #f3f3f3;
+  background-color: #263d4c;  
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: #333333;
+}
+
+.form-control, output {
+  background-color: #3f3f3f;
+  color: #fff;
+  border-color: #434343;
+}
+.dropdown-menu>li>a {    
+  color: #bfbebe;
+  background-color: #191818;
+}
+
+.dropdown-menu>li>a:hover {
+  color: #bfbebe;
+  background-color: #263d4c;
+}
+
+.navbar-nav>li>.dropdown-menu {    
+  background-color: #191818;
+}
+
+.navbar-default .navbar-nav>.open>a, .navbar-default .navbar-nav>.open>a:focus, .navbar-default .navbar-nav>.open>a:hover {
+  background-color: #263d4c;
+  color: #fff;
+}
+
+.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+  border: 1px solid #3f3f3f;
+}
+
+.btn-default {
+  color: #fafafa;
+  background-color: #354348;
+	border-color: #213e44;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+  background-color: #252222;
+  opacity: 1;
+}
+
+.modal-content{
+  background-color: #272727;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+input[type="select"]:focus,
+.uneditable-input:focus {   
+  border-color: rgba(32, 69, 85, 0.8);
+  box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(53, 53, 130, 0.6);
+  outline: 0 none;
+}
