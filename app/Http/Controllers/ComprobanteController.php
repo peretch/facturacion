@@ -22,21 +22,21 @@ class ComprobanteController extends Controller
 		$fechaFin = $request->fechaFin;
 		$tipos_comprobante = TipoComprobante::all();
 		if($fechaFin && $fechaInicio){
-			$facturas = Comprobante::where('fechaEmision', '>=', $fechaInicio)
+			$comprobantes = Comprobante::where('fechaEmision', '>=', $fechaInicio)
 					->where('fechaEmision', '<=', $fechaFin)
 					->orderby('id', 'desc')
 					->paginate(20);            
 		}else{
-			$facturas = Comprobante::orderby('id', 'desc')->paginate(20);
+			$comprobantes = Comprobante::orderby('id', 'desc')->paginate(20);
 		}
-		return view('comprobantes.index')->with(compact('facturas', 'monedas', 'tipos_comprobante'));            
+		return view('comprobantes.index')->with(compact('comprobantes', 'monedas', 'tipos_comprobante'));            
 	}
 
 	public function consultas(Request $request)
 	{
-		$facturas = Comprobante::all();
+		$comprobantes = Comprobante::all();
 		$monedas = Moneda::all();
-		return view('comprobantes.consultas')->with(compact('facturas', 'monedas'));
+		return view('comprobantes.consultas')->with(compact('comprobantes', 'monedas'));
 	}
 
 	public function nuevo()
@@ -95,7 +95,7 @@ class ComprobanteController extends Controller
 				//dd($linea, $producto);
 				if($producto->stock >= $linea->cantidad){
 					$lineaProducto = new LineaProducto();
-					$lineaProducto->factura()->associate($comprobante);
+					$lineaProducto->comprobante()->associate($comprobante);
 					$lineaProducto->producto()->associate($producto);
 					$lineaProducto->usuario()->associate(Auth::user());
 
@@ -127,22 +127,22 @@ class ComprobanteController extends Controller
 				$comprobante->total = $comprobante->impuestos + $comprobante->subTotal;
 				$comprobante->save();
 			}
-			$mensaje = "La factura fue cargada correctamente.";        
-			return Redirect::to('facturas/detalle/' . $factura->id)->with(compact('mensaje'));            
+			$mensaje = "La comprobante fue cargada correctamente.";        
+			return Redirect::to('comprobantes/detalle/' . $comprobante->id)->with(compact('mensaje'));            
 		}
 	}
 
-	public function detalle(Request $request, $factura_id)
+	public function detalle(Request $request, $comprobante_id)
 	{
-		$factura = Comprobante::find($factura_id);
+		$comprobante = Comprobante::find($comprobante_id);
 		
-		return view('comprobantes.detalle')->with(compact('factura'));
+		return view('comprobantes.detalle')->with(compact('comprobante'));
 	}
 
-	public function imprimir(Request $request, $factura_id)
+	public function imprimir(Request $request, $comprobante_id)
 	{
-		$factura = Comprobante::find($factura_id);        
+		$comprobante = Comprobante::find($comprobante_id);        
 		
-		return view('comprobantes.imprimir')->with(compact('factura'));
+		return view('comprobantes.imprimir')->with(compact('comprobante'));
 	}
 }

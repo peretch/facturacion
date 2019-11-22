@@ -45,8 +45,8 @@ Route::group(['middleware'=>'auth'], function () {
 	Route::get('/comprobantes/', 'ComprobanteController@index');
 	Route::get('/comprobantes/consultas', 'ComprobanteController@consultas');
 	Route::get('/comprobantes/nuevo', 'ComprobanteController@nuevo');
-	Route::get('/comprobantes/detalle/{facturaId}', 'ComprobanteController@detalle');
-	Route::get('/comprobantes/imprimir/{facturaId}', 'ComprobanteController@imprimir');
+	Route::get('/comprobantes/detalle/{comprobanteId}', 'ComprobanteController@detalle');
+	Route::get('/comprobantes/imprimir/{comprobanteId}', 'ComprobanteController@imprimir');
 	Route::post('/comprobantes/guardar', 'ComprobanteController@guardar');
 
 	Route::get('/clientes/', 'ClienteController@index');
