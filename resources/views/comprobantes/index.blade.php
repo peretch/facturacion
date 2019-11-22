@@ -76,11 +76,11 @@
 				</div>
 				<div class="panel-body">
 					<div class="table-responsive">
-						<table id="tabla_facturas" cellspacing="0" width="100%" class="table-condensed table-striped table-bordered">
+						<table id="tabla_comprobantes" cellspacing="0" width="100%" class="table-condensed table-striped table-bordered">
 							<tr>
 								<th width="50px">ID</th>
 								<th width="150px">Fecha emisión</th>
-								<th width="150px">Tipo de factura</th>
+								<th width="150px">Tipo de comprobante</th>
 								<th>Descripción</th>
 								<th class="text-center" width="100px">Sub-total</th>
 								<th class="text-center" width="100px">IVA</th>
@@ -89,14 +89,14 @@
 								<th width="25px"></th>                                
 							</tr>
 
-							@foreach($facturas as $factura)
+							@foreach($comprobantes as $comprobante)
 							<tr>
-								<td>{{$factura->id}}</td>
-								<td>{{ date('d / m / Y', strtotime($factura->fechaEmision)) }}</td>
+								<td>{{$comprobante->id}}</td>
+								<td>{{ date('d / m / Y', strtotime($comprobante->fechaEmision)) }}</td>
 								<td>Venta al contado</td>
 								<td>
 									<?php $i=0; ?>
-									@foreach($factura->lineasproducto as $l)
+									@foreach($comprobante->lineasproducto as $l)
 										@if($i<2)
 											x{{ $l->cantidad}}  {{$l->producto->codigo}}, 
 											<?php $i++; ?>
@@ -106,16 +106,16 @@
 										@endif
 									@endforeach
 								</td>
-								<td class="text-right">{{$factura->moneda->simbolo}} {{ number_format($factura->subTotal, 2) }} </td>
-								<td class="text-right">{{$factura->moneda->simbolo}} {{ number_format($factura->impuestos, 2) }} </td>
-								<td class="text-right">{{$factura->moneda->simbolo}} {{ number_format($factura->total, 2) }} </td>
+								<td class="text-right">{{$comprobante->moneda->simbolo}} {{ number_format($comprobante->subTotal, 2) }} </td>
+								<td class="text-right">{{$comprobante->moneda->simbolo}} {{ number_format($comprobante->impuestos, 2) }} </td>
+								<td class="text-right">{{$comprobante->moneda->simbolo}} {{ number_format($comprobante->total, 2) }} </td>
 								<td class="text-center">
-									<a target="_blank" href="/facturas/imprimir/{{$factura->id}}">
+									<a target="_blank" href="/comprobantes/imprimir/{{$comprobante->id}}">
 										<i class="fa fa-print" aria-hidden="true"></i>
 									</a>
 								</td>
 								<td class="text-center">
-									<a href="/facturas/detalle/{{$factura->id}}">
+									<a href="/comprobantes/detalle/{{$comprobante->id}}">
 										<i class="fa fa-info" aria-hidden="true"></i>
 									</a>
 								</td>
@@ -124,7 +124,7 @@
 						</table>
 					</div>
 					<div class="text-center">
-						{{ $facturas->links() }}
+						{{ $comprobantes->links() }}
 					</div>
 				</div>
 			</div>

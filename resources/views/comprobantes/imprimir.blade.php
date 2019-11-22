@@ -62,8 +62,8 @@
  @endfor
  <tr>	
 	<td colspan="11" ></td>	
-	@if($factura->rut != null)
-		<td colspan="4">{{ $factura->rut }}</td>
+	@if($comprobante->rut != null)
+		<td colspan="4">{{ $comprobante->rut }}</td>
 		<td style="width: 10mm; height: 5mm"></td>	
 	@else
 		<td colspan="4"></td>
@@ -79,7 +79,7 @@
 		<td style="width: 10mm; height: 9mm"></td>
 		<td style="width: 10mm; height: 9mm"></td>	
 		<td style="width: 10mm; height: 9mm"></td>	
-		<td style="width: 86mm; height: 9mm">{{ $factura->nombreCliente }}</td>
+		<td style="width: 86mm; height: 9mm">{{ $comprobante->nombreCliente }}</td>
 		
 		
 		<td style="width: 10mm; height: 9mm"></td>	
@@ -94,13 +94,13 @@
 		<td></td>
 		<td></td>	
 		<td></td>	
-		<td>{{ $factura->direccion }}</td>			
+		<td>{{ $comprobante->direccion }}</td>			
 		
 		
 		<td style="width: 20mm;"></td>
-		<td>{{ date('d', strtotime($factura->fechaEmision)) }}</td>	
-		<td>{{ date('m', strtotime($factura->fechaEmision)) }}</td>	
-		<td>{{ date('y', strtotime($factura->fechaEmision)) }}</td>	
+		<td>{{ date('d', strtotime($comprobante->fechaEmision)) }}</td>	
+		<td>{{ date('m', strtotime($comprobante->fechaEmision)) }}</td>	
+		<td>{{ date('y', strtotime($comprobante->fechaEmision)) }}</td>	
 		<td></td>	
 	</tr>
 </table>
@@ -110,7 +110,7 @@
 		<td style="height: 6mm" colspan="6"></td>
 	</tr>
 	<?php $i = 0 ?>
-	@foreach($factura->lineasProducto as $l)
+	@foreach($comprobante->lineasProducto as $l)
 		<tr>
 			<td style="font-size: 12px; width: 24mm; height: 6mm"></td>
 			<td style="font-size: 12px; width: 10mm; height: 6mm">{{ $l->cantidad }}</td>
@@ -148,7 +148,7 @@
 		<td style="font-size: 12px; width: 24mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 10mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 8mm; height: 6mm"></td>
-		<td style="font-size: 12px; width: 100mm; height: 6mm">{{$factura->descripcion_1}}</td>
+		<td style="font-size: 12px; width: 100mm; height: 6mm">{{$comprobante->descripcion_1}}</td>
 		<td style="font-size: 12px; width: 16mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 20mm; height: 6mm"></td>
 	</tr>
@@ -156,7 +156,7 @@
 		<td style="font-size: 12px; width: 24mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 10mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 8mm; height: 6mm"></td>
-		<td style="font-size: 12px; width: 100mm; height: 6mm">{{$factura->descripcion_2}}</td>
+		<td style="font-size: 12px; width: 100mm; height: 6mm">{{$comprobante->descripcion_2}}</td>
 		<td style="font-size: 12px; width: 16mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 20mm; height: 6mm"></td>
 	</tr>
@@ -164,7 +164,7 @@
 		<td style="font-size: 12px; width: 24mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 10mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 8mm; height: 6mm"></td>
-		<td style="font-size: 12px; width: 100mm; height: 6mm">{{$factura->descripcion_3}}</td>
+		<td style="font-size: 12px; width: 100mm; height: 6mm">{{$comprobante->descripcion_3}}</td>
 		<td style="font-size: 12px; width: 16mm; height: 6mm"></td>
 		<td style="font-size: 12px; width: 20mm; height: 6mm"></td>
 	</tr>
@@ -174,15 +174,15 @@
 	</tr>
 	<tr>
 		<td colspan="5"></td>
-		<td style="font-size: 12px; width: 24mm; height: 6mm">{{ round($factura->subTotal) }}</td>
+		<td style="font-size: 12px; width: 24mm; height: 6mm">{{ round($comprobante->subTotal) }}</td>
 	</tr>
 	<tr>
 		<td colspan="5"></td>
-		<td style="font-size: 12px; width: 24mm; height: 6mm">{{ round($factura->impuestos) }}</td>
+		<td style="font-size: 12px; width: 24mm; height: 6mm">{{ round($comprobante->impuestos) }}</td>
 	</tr>
 	<tr>
 		<td colspan="5"></td>
-		<td style="font-size: 12px; width: 24mm; height: 7mm">{{ round($factura->total) }}</td>
+		<td style="font-size: 12px; width: 24mm; height: 7mm">{{ round($comprobante->total) }}</td>
 	</tr>
 </table>
 <style type="text/css" media="print">
