@@ -49,7 +49,7 @@ class ComprobanteController extends Controller
 
 	public function guardar(Request $request)
 	{
-		$tipo_comprobante = $request->tipo_comprobante;		
+		$tipo_comprobante = $request->tipo_comprobante;	
 		// 1- Venta al contado
 		// 2- Devolución al contado
 
@@ -58,33 +58,35 @@ class ComprobanteController extends Controller
 			$articulos = json_decode($request->listadoArticulos);
 			$moneda = Moneda::find($request->moneda);
 			$cliente = Cliente::find($request->cliente_id);        
-			$factura = new Comprobante();        
+			$comprobante = new Comprobante();
 
-			$factura->serie = $request->serie;
-			$factura->numero = $request->numero;        
-			$factura->fechaEmision = $request->fechaEmision;
+			$comprobante->tipo_comprobante_id = $tipo_comprobante;
 			
-			$factura->descripcion_1 = $request->descripcion_1;
-			$factura->descripcion_2 = $request->descripcion_2;
-			$factura->descripcion_3 = $request->descripcion_3;
+			$comprobante->serie = $request->serie;
+			$comprobante->numero = $request->numero;        
+			$comprobante->fechaEmision = $request->fechaEmision;
+			
+			$comprobante->descripcion_1 = $request->descripcion_1;
+			$comprobante->descripcion_2 = $request->descripcion_2;
+			$comprobante->descripcion_3 = $request->descripcion_3;
 
 			if(is_numeric($request->cotizacion)){
-				$factura->cotizacion = $request->cotizacion;
+				$comprobante->cotizacion = $request->cotizacion;
 			}
 			
-			$factura->moneda()->associate($moneda);
+			$comprobante->moneda()->associate($moneda);
 
 			if($cliente != null){
-				$factura->cliente()->associate($cliente);
-				$factura->nombreCliente = $cliente->nombre . " " . $cliente->apellido;
-				$factura->rut = $cliente->rut;            
+				$comprobante->cliente()->associate($cliente);
+				$comprobante->nombreCliente = $cliente->nombre . " " . $cliente->apellido;
+				$comprobante->rut = $cliente->rut;            
 			}else{
-				$factura->nombreCliente = $request->cliente;
-				$factura->rut = $request->rut;
+				$comprobante->nombreCliente = $request->cliente;
+				$comprobante->rut = $request->rut;
 			}
-			$factura->direccion = $request->direccion;
+			$comprobante->direccion = $request->direccion;
 
-			$factura->save();
+			$comprobante->save();
 			$ok = true;
 
 			for ($i=0; $i < count($articulos); $i++) {
@@ -93,7 +95,7 @@ class ComprobanteController extends Controller
 				//dd($linea, $producto);
 				if($producto->stock >= $linea->cantidad){
 					$lineaProducto = new LineaProducto();
-					$lineaProducto->factura()->associate($factura);
+					$lineaProducto->factura()->associate($comprobante);
 					$lineaProducto->producto()->associate($producto);
 					$lineaProducto->usuario()->associate(Auth::user());
 
@@ -113,17 +115,17 @@ class ComprobanteController extends Controller
 
 					$lineaProducto->fecha = date("Y-m-d H:i:s");
 
-					$factura->impuestos += $lineaProducto->impuestos;
-					$factura->subTotal += $lineaProducto->subTotal;
-					$moneda_simbolo = $factura->moneda->simbolo;
+					$comprobante->impuestos += $lineaProducto->impuestos;
+					$comprobante->subTotal += $lineaProducto->subTotal;
+					$moneda_simbolo = $comprobante->moneda->simbolo;
 
 					$lineaProducto->descripcion = "x$lineaProducto->cantidad $producto->nombre - TOTAL $moneda_simbolo $lineaProducto->total";                
 					
 					$lineaProducto->save();
 					$producto->save();
 				}
-				$factura->total = $factura->impuestos + $factura->subTotal;
-				$factura->save();
+				$comprobante->total = $comprobante->impuestos + $comprobante->subTotal;
+				$comprobante->save();
 			}
 			$mensaje = "La factura fue cargada correctamente.";        
 			return Redirect::to('facturas/detalle/' . $factura->id)->with(compact('mensaje'));            
