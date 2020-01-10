@@ -18,8 +18,6 @@ class ProductoController extends Controller
 {    
 	public function index(Request $request)
 	{
-		dd($request->all());
-		//$productos = Producto::all();
 		$busqueda = $request->get('busqueda');
 		$producto = Producto::BuscarPorCodigo($busqueda)->first();
 		if ($producto !=null) {

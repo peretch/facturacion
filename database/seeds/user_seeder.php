@@ -16,5 +16,9 @@ class user_seeder extends Seeder
 			'email' => 'dios',
 			'password' => bcrypt('mil@nes@'),
 		]);
+		DB::table('preferencias')->insert([
+			'usuario_id' => 1,
+			'estilo' => 'css/style_blue.css'
+		]);
 	}
 }
