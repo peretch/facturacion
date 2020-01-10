@@ -60,7 +60,7 @@ class ProductoController extends Controller
 			'codigo' => 'required',
 			'nombre' => 'required',
 		]);
-		$producto = Producto::BuscarPorCodigo(Input::get('codigo'))->get();
+		$producto = Producto::BuscarPorCodigo($request->codigo)->get();
 		try{
 			$iva = TasaIva::find(1);
 			//Acá se hace el alta
@@ -149,7 +149,7 @@ class ProductoController extends Controller
 	public function configuracion(Request $request, $producto_codigo){
 		$producto = Producto::BuscarPorCodigo($producto_codigo)->firstOrFail();
 		if($producto != null){
-			$stock_minimo = Input::get('stockMinimo');
+			$stock_minimo = $request->stockMinimo;
 			if($stock_minimo != null){
 				if($stock_minimo >= 0){
 					$producto->stock_minimo_valor = $stock_minimo;                    
