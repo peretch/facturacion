@@ -7,7 +7,7 @@
 }
 
 .default_logo{
-  content:url("../img/logo_gray.png");
+  content:url("../img/peretch.svg");
 }
 
 body{
@@ -30,6 +30,11 @@ body{
 	#background-color: #bb9898;
 	background-color: #202020;
 	border-color: #d3e0e9;
+}
+
+.well {
+  background-color: #323232;
+  border-color: #555;
 }
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
@@ -201,4 +206,14 @@ input[type="select"]:focus,
   border-color: rgba(32, 69, 85, 0.8);
   box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(53, 53, 130, 0.6);
   outline: 0 none;
+}
+
+.th-b{
+  background-color: #2c4244;
+  color: #fff;
+}
+
+.td-red{
+  background-color: #863f3f;
+  color: #fff;
 }

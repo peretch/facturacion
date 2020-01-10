@@ -77,46 +77,83 @@
 				<div class="panel-body">
 					<div class="table-responsive">
 						<table id="tabla_comprobantes" cellspacing="0" width="100%" class="table-condensed table-striped table-bordered">
-							<tr>
-								<th width="50px">ID</th>
-								<th width="150px">Fecha emisión</th>
-								<th width="150px">Tipo de comprobante</th>
-								<th>Descripción</th>
-								<th class="text-center" width="100px">Sub-total</th>
-								<th class="text-center" width="100px">IVA</th>
-								<th class="text-center" width="100px">Total</th>
-								<th width="25px"></th>
-								<th width="25px"></th>                                
+							<tr>								
+								<th class="text-center" width="120px">Fecha emisión</th>
+								<th class="text-center" width="200px">Tipo comprobante</th>
+							<!--
+								<th class="text-center">Descripción</th>
+							-->
+								<th class="text-center">Cliente</th>
+								<th class="text-center" class="text-center" width="120px">Sub-total</th>
+								<th class="text-center" class="text-center" width="120px">IVA</th>
+								<th class="text-center" class="text-center" width="120px">Total</th>
+								<th class="text-center" width="50px" colspan="2"></th>								
 							</tr>
 
 							@foreach($comprobantes as $comprobante)
-							<tr>
-								<td>{{$comprobante->id}}</td>
-								<td>{{ date('d / m / Y', strtotime($comprobante->fechaEmision)) }}</td>
-								<td>Venta al contado</td>
-								<td>
+							<tr>								
+								<td class="text-center">{{ date('d / m / Y', strtotime($comprobante->fecha_emision)) }}</td>
+								<td class="text-center">{{ $comprobante->tipo->nombre }}</td>
+							<!--
+								<td class="text-center">
 									<?php $i=0; ?>
 									@foreach($comprobante->lineasproducto as $l)
 										@if($i<2)
-											x{{ $l->cantidad}}  {{$l->producto->codigo}}, 
+											x {{ $l->cantidad}}  {{$l->producto->nombre}}, 
 											<?php $i++; ?>
 										@elseif($i==2)
-											{{$l->producto->codigo}} x{{ $l->cantidad}}
+											{{$l->producto->nombre}} x {{ $l->cantidad}}
 											<?php $i++; ?>
 										@endif
 									@endforeach
 								</td>
-								<td class="text-right">{{$comprobante->moneda->simbolo}} {{ number_format($comprobante->subTotal, 2) }} </td>
-								<td class="text-right">{{$comprobante->moneda->simbolo}} {{ number_format($comprobante->impuestos, 2) }} </td>
-								<td class="text-right">{{$comprobante->moneda->simbolo}} {{ number_format($comprobante->total, 2) }} </td>
+							-->
+								@if($comprobante->cliente)
+
+								<td class="text-center" title="{{$comprobante->cliente->rut}}">
+									<a href="/clientes/detalle/{{$comprobante->cliente->id}}">
+										{{$comprobante->cliente->nombre}} {{$comprobante->cliente->apellido}}
+									</a>
+								</td>
+
+								@else
+
 								<td class="text-center">
+									{{$comprobante->nombre_cliente}}
+								</td>
+
+								@endif
+								
+								<td>
+									&nbsp; {{$comprobante->moneda->simbolo}} 
+									<span class="pull-right">
+										{{ number_format($comprobante->subTotal, 2) }}
+									</span>
+								</td>
+
+								<td>
+									&nbsp; {{$comprobante->moneda->simbolo}} 
+									<span class="pull-right">
+										{{ number_format($comprobante->iva, 2) }}
+									</span>
+								</td>
+
+								<td>
+									&nbsp; {{$comprobante->moneda->simbolo}} 
+									<span class="pull-right">
+										{{ number_format($comprobante->total, 2) }}
+									</span>
+								</td>
+
+								<td width="50px" class="text-center" title="Vista de impresión">
 									<a target="_blank" href="/comprobantes/imprimir/{{$comprobante->id}}">
 										<i class="fa fa-print" aria-hidden="true"></i>
 									</a>
 								</td>
-								<td class="text-center">
+
+								<td width="50px" class="text-center" title="Detalle del comprobante">
 									<a href="/comprobantes/detalle/{{$comprobante->id}}">
-										<i class="fa fa-info" aria-hidden="true"></i>
+										<i class="fa fa-external-link" aria-hidden="true"></i>
 									</a>
 								</td>
 							</tr>

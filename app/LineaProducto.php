@@ -12,7 +12,7 @@ class LineaProducto extends Model
     protected $table = 'linea_productos';
 
     protected $fillable = [
-        'producto_id', 'usuario_id', 'descripcion', 'cantidad', 'fecha', 'stock', 'factura_id', 'tasa_iva_id'
+        'producto_id', 'usuario_id', 'descripcion', 'cantidad', 'fecha', 'stock', 'comprobante_id', 'tasa_iva_id', 'iva'
     ];
 
     public $timestamps = false;

@@ -18,6 +18,7 @@ class ModuloClientesMigration extends Migration
 			$table->string('documento')->nullable();
 			$table->integer('tipo_documento')->unsigned()->nullable();
 			$table->foreign('tipo_documento', 'cliente_tipo_documento')->references('id')->on('tipos_documento');
+			$table->index(['documento']);
 		});		
 	}
 

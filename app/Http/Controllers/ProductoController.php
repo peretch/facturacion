@@ -18,6 +18,7 @@ class ProductoController extends Controller
 {    
 	public function index(Request $request)
 	{
+		dd($request->all());
 		//$productos = Producto::all();
 		$busqueda = $request->get('busqueda');
 		$producto = Producto::BuscarPorCodigo($busqueda)->first();
@@ -28,7 +29,7 @@ class ProductoController extends Controller
 			if ($producto !=null) {
 				return Redirect::to('productos/' . $producto->busqueda);
 			}else{
-				$productos = Producto::Filtrar($busqueda)->orderBy('nombre')->paginate(50);                
+				$productos = Producto::Filtrar($busqueda)->orderBy('nombre')->sortable()->paginate(20);
 				return view('productos.index')->with(compact('productos'));
 			}
 		}
@@ -101,7 +102,8 @@ class ProductoController extends Controller
 		$producto = Producto::BuscarPorCodigo($producto_codigo)->firstOrFail();
 		$familias_producto = FamiliaProducto::orderBy('nombre')->get();
 		$movimientos = $producto->LineasProducto()->orderBy('fecha', 'desc')->paginate(6);
-		return view('productos.detalle')->with(compact('producto', 'movimientos', 'familias_producto'));
+		$precios_historico = $producto->preciosHistorico();		
+		return view('productos.detalle')->with(compact('producto', 'movimientos', 'familias_producto', 'precios_historico'));
 	}
 
 	public function editar(Request $request){
@@ -129,12 +131,10 @@ class ProductoController extends Controller
 				}
 			}else{
 				$producto->precio  = 0;
-			}
-
-			
+			}			
 			
 			$producto->save();            
-			$mensaje = "El producto fue ingresado correctamente.";
+			$mensaje = "El producto fue modificado correctamente.";
 			return Redirect::to('productos/detalle/'.$producto->codigo)->with(compact('mensaje'));
 		}
 	}
@@ -143,8 +143,8 @@ class ProductoController extends Controller
 		$producto = Producto::BuscarPorId($request->producto_id);
 		if($producto != null){
 			$producto->delete();
-			$mensaje = "El proucto fue borrado correctamente.";
-			return Redirect::to('/productos')->with(compact('mensaje'));
+			
+			return Redirect::to('/productos')->with(compact('mensaje', 'precios_historico'));
 		}
 	}
 
@@ -187,12 +187,12 @@ class ProductoController extends Controller
 			if($producto->stock >= 0){
 				$producto->save();
 				$producto->registrarCambioStock($cantidad, $descripcion);
-				// Si el stock restante es menor al mínimo. Se envía una notificación de que quedan pocos.
+				// Si el stock restante es menor al mínimo. Se envía una notificación de que quedan pocos.				
 				if($producto->stock_minimo_notificar && $producto->stock <= $producto->stock_minimo_valor){
 					$titulo = "Stock mínimo alcanzado";
 					$texto = "Quedan " . $producto->stock . " unidad/es de " . $producto->nombre; 
 					$link_texto = "Ir al producto";
-					$link = "/productos/" . $producto->codigo;
+					$link = "/productos/detalle/" . $producto->codigo;
 					Notificacion::crearNotificacion($titulo, $texto, $link, $link_texto);
 				}
 

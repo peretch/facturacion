@@ -79,7 +79,7 @@
 		<td style="width: 10mm; height: 9mm"></td>
 		<td style="width: 10mm; height: 9mm"></td>	
 		<td style="width: 10mm; height: 9mm"></td>	
-		<td style="width: 86mm; height: 9mm">{{ $comprobante->nombreCliente }}</td>
+		<td style="width: 86mm; height: 9mm">{{ $comprobante->nombre_cliente }}</td>
 		
 		
 		<td style="width: 10mm; height: 9mm"></td>	
@@ -98,9 +98,9 @@
 		
 		
 		<td style="width: 20mm;"></td>
-		<td>{{ date('d', strtotime($comprobante->fechaEmision)) }}</td>	
-		<td>{{ date('m', strtotime($comprobante->fechaEmision)) }}</td>	
-		<td>{{ date('y', strtotime($comprobante->fechaEmision)) }}</td>	
+		<td>{{ date('d', strtotime($comprobante->fecha_emision)) }}</td>	
+		<td>{{ date('m', strtotime($comprobante->fecha_emision)) }}</td>	
+		<td>{{ date('y', strtotime($comprobante->fecha_emision)) }}</td>	
 		<td></td>	
 	</tr>
 </table>
@@ -178,7 +178,7 @@
 	</tr>
 	<tr>
 		<td colspan="5"></td>
-		<td style="font-size: 12px; width: 24mm; height: 6mm">{{ round($comprobante->impuestos) }}</td>
+		<td style="font-size: 12px; width: 24mm; height: 6mm">{{ round($comprobante->iva) }}</td>
 	</tr>
 	<tr>
 		<td colspan="5"></td>

@@ -21,7 +21,7 @@ class CreateLineaProductosTable extends Migration
             // Usuario asociado
             $table->integer('usuario_id')->unsigned();
             $table->foreign('usuario_id')->references('id')->on('users');
-            // Factura asociada : NULLABLE
+            // Cinoribante asociado : NULLABLE
             $table->integer('comprobante_id')->unsigned()->nullable();
             $table->foreign('comprobante_id')->references('id')->on('comprobantes');
             
@@ -37,8 +37,10 @@ class CreateLineaProductosTable extends Migration
             $table->integer('cantidad');
 
             $table->double('subTotal')->nullable();
-            $table->double('impuestos')->nullable();
+            $table->double('iva')->nullable();
             $table->double('total')->nullable();
+
+            $table->index(['fecha']);
         });
     }
 

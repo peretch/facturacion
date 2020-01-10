@@ -10,6 +10,11 @@
                 </div>
 
                 <div class="panel-body">
+                    <span class="pull-right">
+                        <a class="btn btn-sm btn-success" href="/productos/nuevo" class="btn btn-link">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Nuevo producto
+                        </a>
+                    </span>
 					<ul class="list-inline">
                         <li>
                             <a href="/" class="link_ruta">
@@ -72,23 +77,35 @@
 									<tr>
 										<th width="70px">Fecha</th>
 										<th width="70px">Hora</th>
-										<th width="150px">Producto</th>
+										<th width="200px">Producto</th>
 										<th width="40px">Cant.</th>
 										<th>Descripción</th>
 										<th width="120px">Usuario</th>
-										<th width="100px">Factura</th>
+										<th width="100px">Comprobante</th>
 									</tr>
 
 									@foreach($movimientos->sortByDesc('fecha') as $m)										
 										<tr>
 											<td>{{ date_format( date_create($m->fecha), 'd/m/Y' ) }}</td>		
 											<td>{{ date_format( date_create($m->fecha), 'H:i:s' ) }}</td>		
-											<td><a href="/productos/detalle/{{ $m->producto->codigo }}">{{ $m->producto->nombre }}</a></td>
+											<td>
+                                                <a href="/productos/detalle/{{ $m->producto->codigo }}">
+                                                    @if(strlen($m->producto->nombre) > 24)
+                                                        {{ substr($m->producto->nombre, 0, 24) . "..."}}
+                                                    @else
+                                                        {{ $m->producto->nombre }}
+                                                    @endif                                                    
+                                                </a>
+                                            </td>
 											<td align="center">{{ $m->cantidad}}</td>
 											<td>{{ $m->descripcion}}</td>
 											<td>{{$m->usuario->name}}</td>
-											@if($m->factura)
-												<td><a href="/facturas/detalle/{{ $m->factura->id }}">ver factura</a></td>
+											@if($m->comprobante)
+												<td class="text-center">
+                                                    <a href="/comprobantes/detalle/{{ $m->comprobante->id }}">
+                                                        <i class="fa fa-external-link"></i>
+                                                    </a>
+                                                </td>
 											@else
 												<td>---</td>
 											@endif

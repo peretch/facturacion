@@ -15,32 +15,41 @@ class CreateComprobantesTable extends Migration
     {
         Schema::create('comprobantes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('serie')->nullable();
-            $table->integer('numero')->nullable();            
-
-            $table->string('nombreCliente')->nullable();
-            $table->string('direccion')->nullable();            
-            $table->string('rut')->nullable();
 
             // Tipo comprobante
             $table->integer('tipo_comprobante_id')->unsigned();
             $table->foreign('tipo_comprobante_id')->references('id')->on('tipo_comprobantes');
 
-            $table->double('subTotal')->default(0);
-            $table->double('impuestos')->default(0);
-            $table->double('total')->default(0);
-            
-            $table->integer('cliente_id')->unsigned()->nullable();
-            $table->foreign('cliente_id')->references('id')->on('clientes');
-
+            // Moneda
             $table->integer('moneda_id')->unsigned()->nullable();
             $table->foreign('moneda_id')->references('id')->on('monedas');
             $table->double('cotizacion')->default(1);
 
-            $table->date('fechaEmision');
+            // Cliente asociado
+            $table->integer('cliente_id')->unsigned()->nullable();
+            $table->foreign('cliente_id')->references('id')->on('clientes');
+
+            // Datos del comprobante
+            $table->string('serie')->nullable();
+            $table->integer('numero')->nullable();
+
+            // Datos del cliente
+            $table->string('nombre_cliente')->nullable();
+            $table->string('direccion')->nullable();            
+            $table->string('rut')->nullable();
+
+            // Calculo final
+            $table->double('subTotal')->default(0);
+            $table->double('iva')->default(0);
+            $table->double('total')->default(0);
+            
+
+            $table->datetime('fecha_emision');
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index(['fecha_emision']);
         });
     }
 

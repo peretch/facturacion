@@ -2,12 +2,18 @@
 	background-color: #000;  
 }
 
+.navbar-default {
+    background-color: #2e4052;
+    border-color: #d3e0e9;
+}
+
 .logo{  
   height: 50px;
 }
 
 .default_logo{
-  content:url("../img/logo_blue.png");
+  content:url("../img/peretch.svg");
+  filter: grayscale(100%);
 }
 
 body{
@@ -97,3 +103,11 @@ legend {
   font-weight:bold;
 }
 
+.th-b{
+  background-color: #273040;
+  color: #fff;
+}
+
+.th-f{
+  background-color: #f5f5f5;  
+}

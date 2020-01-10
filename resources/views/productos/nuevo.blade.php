@@ -153,7 +153,7 @@
 		}
 	});
 
-	$("#formFamiliaProducto").on('submit', function(e){		
+	$("#formFamiliaProducto").on('submit', function(e){
 		e.preventDefault();		
 		var familiaProducto = $('#txtnombreFamiliaProducto').val();
 		$.ajax({
@@ -171,7 +171,7 @@
 				}));
 				$('#formFamiliaProducto').modal('toggle');
 			}
-		});        
+		});
 	});
 </script>
 @endsection

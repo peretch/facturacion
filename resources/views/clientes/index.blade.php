@@ -29,36 +29,48 @@
 					@include('partials.menu_productos')
 				
 					<div class="table-responsive">
-						<table id="tabla_facturas" cellspacing="0" width="100%" class="table-condensed table-striped table-bordered">
+						<table id="tabla_comprobantes" cellspacing="0" width="100%" class="table-condensed table-striped table-bordered">
 							<tr>
-								<th width="50px">ID</th>
-								<th width="200px">Nombre</th>
-								<th>Mail</th>
-								<th>Dirección</th>
-								<th width="120px">Teléfono</th>
-								<th width="120px">RUT</th>
+								<th width="100px" class="text-center" colspan="2">ID</th>	
+								<th width="200px" class="text-center">Nombre</th>
+								<th class="text-center">Dirección</th>
+								<th width="120px" class="text-center">Teléfono</th>
+								<th class="text-center">E-Mail</th>
+								<th width="120px" class="text-center">RUT</th>
 							</tr>
 
 							@foreach($clientes as $cliente)
-							<tr>
-								<td>{{$cliente->id}}</td>
+							<tr class="text-center">
+								<td>{{$cliente->id}}</td>								
+								@if($cliente->empresa)
 								<td>
-									@if($cliente->empresa)
-										<i style="width: 20px;" class="fa fa-briefcase text-center" aria-hidden="true"></i>
-										<a href="/clientes/detalle/{{$cliente->id}}">
-											{{$cliente->nombre}}
-										</a>
-									@else
-										<i style="width: 20px;" class="fa fa-user text-center" aria-hidden="true"></i>
-										<a href="/clientes/detalle/{{$cliente->id}}">												
-											{{$cliente->nombre}} {{$cliente->apellido}}
-										</a>
-									@endif									
+									<i style="width: 20px;" class="fa fa-briefcase text-center" aria-hidden="true"></i>
 								</td>
-								<td>{{$cliente->mail}}</td>
+								<td>
+									<a href="/clientes/detalle/{{$cliente->id}}">
+										{{$cliente->nombre}}
+									</a>
+								</td>
+								@else
+								<td width="40px">
+									<i style="width: 20px;" class="fa fa-user text-center" aria-hidden="true"></i>
+								</td>
+								<td>
+									<a href="/clientes/detalle/{{$cliente->id}}">		
+										{{$cliente->nombre}} {{$cliente->apellido}}
+									</a>
+								</td>
+								@endif								
 								<td>{{$cliente->direccion}}</td>
-								<td></td>
-								<td>{{$cliente->rut}}</td>
+								<td>{{$cliente->telefono}}</td>								
+								<td>{{$cliente->mail}}</td>
+								<td class="text-center">
+									@if($cliente->rut)
+										{{$cliente->rut}}
+									@else
+										-
+									@endif
+								</td>
 							</tr>
 							@endforeach
 						</table>

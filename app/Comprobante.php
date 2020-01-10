@@ -16,13 +16,13 @@ class Comprobante extends Model
     protected $table = 'comprobantes';
 
     protected $fillable = [
-        'serie', 'numero', 'nombreCliente', 'direccion', 'rut', 'subTotal', 'impuestos', 'total', 'cliente_id', 'moneda_id', 'cotizacion', 'fechaEmision'
+        'serie', 'numero', 'nombre_cliente', 'direccion', 'rut', 'subTotal', 'iva', 'total', 'cliente_id', 'moneda_id', 'cotizacion', 'fecha_emision', 'tipo_comprobante_id'
     ];
 
     protected $dates = ['deleted_at'];
 
     public function tipo(){
-        return $this->belongsTo(Comprobante::class, 'tipo_comprobante_id');
+        return $this->belongsTo(TipoComprobante::class, 'tipo_comprobante_id');
     }
 
     public function usuario(){
@@ -40,4 +40,12 @@ class Comprobante extends Model
     public function lineasProducto(){
         return $this->hasMany(LineaProducto::class);
     }
+
+    public function factura(){
+        return $this->hasOne(Factura::class);
+    }
+
+
+    // FILTROS
+    
 }

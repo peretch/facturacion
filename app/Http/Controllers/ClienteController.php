@@ -36,9 +36,11 @@ class ClienteController extends Controller
 			}else{
 				$cliente->nombre = $request->nombre;
 				$cliente->apellido = $request->apellido;
+				$cliente->genero = $request->genero;
 			}
 			$cliente->mail = $request->mail;
 			$cliente->direccion = $request->direccion;
+			$cliente->telefono = $request->telefono;
 			$cliente->save();
 			$mensaje = "Los datos del cliente han sido modificados correctamente.";
 			return Redirect::to('/clientes/detalle/' . $cliente->id)->with(compact('mensaje'));
@@ -56,7 +58,8 @@ class ClienteController extends Controller
 				$cliente->empresa = 1;
 			}
 			$cliente->mail = $request->mail;
-			$cliente->direccion = $request->direccion;
+			$cliente->direccion = $request->direccion;			
+			$cliente->telefono = $request->telefono;
 			$cliente->save();
 			$mensaje = "El cliente fue ingresado correctamente.";
 			return Redirect::to('/clientes/nuevo/')->with(compact('mensaje'));
@@ -65,7 +68,8 @@ class ClienteController extends Controller
 
 	public function detalle($cliente_id){
 		$cliente = Cliente::find($cliente_id);
-		return view('clientes.detalle')->with(compact('cliente'));
+		$comprobantes = $cliente->comprobantes()->paginate(6);
+		return view('clientes.detalle')->with(compact('cliente', 'comprobantes'));
 	}
 
 	public function buscar(Request $request){

@@ -45,19 +45,27 @@
 									<div class="form-group input-group pull-right form-persona">
 										<label class="sr-only">Documento</label>
 										<div style="width: 50%;" class="input-group-btn">
-											<select id="btnAgregarArticulo" class="form-control">
+											<select name="tipo_documento" id="btnAgregarArticulo" class="form-control form-persona-required" oninvalid="this.setCustomValidity('Debe ingresar un tipo de documento')" required="true" oninput="setCustomValidity('')">
 												<option value="" disabled selected hidden>Tipo de documento</option>
 												@foreach($tipos_documento as $tipo_documento)
 													<option value="{{ $tipo_documento->id }}">{{ $tipo_documento->tipo_documento }}</option>
 												@endforeach
 											</select>
 										</div>
-										<input class="form-control" type="text" name="documento" placeholder="N° documento">
+										<input class="form-control form-persona-required" type="text" name="documento" placeholder="N° documento" oninvalid="this.setCustomValidity('Debe ingresar un número de documento')" required="true" oninput="setCustomValidity('')">
+									</div>
+									<div class="form-group form-persona">
+										<label class="sr-only">Género</label>
+										<select class="form-control form-persona-required" name="genero" oninvalid="this.setCustomValidity('Debe ingresar un género pare el cliente')" required="true" oninput="setCustomValidity('')">
+											<option value="" disabled selected hidden>Género</option>
+											<option value="m">Masculino</option>
+											<option value="f">Femenino</option>
+										</select>
 									</div>
 
 									<div class="form-group form-persona">
 										<label class="sr-only">Nombre</label>
-										<input class="form-control form-persona-required" type="text" name="nombre" placeholder="Nombre" required="true">
+										<input class="form-control form-persona-required" type="text" name="nombre" placeholder="Nombre" required="true" oninvalid="this.setCustomValidity('Debe ingresar un nombre de cliente')" oninput="setCustomValidity('')">
 									</div>
 									<div class="form-group form-persona">
 										<label class="sr-only">Apellido</label>
@@ -66,11 +74,11 @@
 
 									<div class="form-group form-empresa" hidden>
 										<label class="sr-only">Razón social</label>
-										<input class="form-control form-empresa-required" type="text" name="razonSocial" placeholder="Razón social">
+										<input class="form-control form-empresa-required" type="text" name="razonSocial" placeholder="Razón social" oninvalid="this.setCustomValidity('Debe ingresar una razón social para el cliente')" oninput="setCustomValidity('')">
 									</div>
 									<div class="form-group form-empresa" hidden>
 										<label class="sr-only">RUT</label>
-										<input class="form-control form-empresa-required" type="text" name="rut" placeholder="RUT">
+										<input class="form-control form-empresa-required" type="text" name="rut" placeholder="RUT" oninvalid="this.setCustomValidity('Debe ingresar un RUT para el cliente')" oninput="setCustomValidity('')">
 									</div>
 
 									<div class="form-group form-persona form-empresa" >
@@ -80,6 +88,10 @@
 									<div class="form-group form-persona form-empresa" >
 										<label class="sr-only">Dirección</label>
 										<input class="form-control" type="text" name="direccion" placeholder="Dirección">
+									</div>
+									<div class="form-group form-persona form-empresa" >
+										<label class="sr-only">Teléfono</label>
+										<input class="form-control" type="text" name="telefono" placeholder="Teléfono">
 									</div>
 
 									<div class="form-group form-persona form-empresa" >

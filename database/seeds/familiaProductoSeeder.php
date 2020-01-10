@@ -12,7 +12,7 @@ class familiaProductoSeeder extends Seeder
     public function run()
     {        
         DB::table('familia_productos')->insert([
-            'nombre' => ' ',
+            'nombre' => 'Productos de almacén',
         ]);
     }
 }

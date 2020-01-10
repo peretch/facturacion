@@ -13,6 +13,10 @@ class CreateProductoPrecioTable extends Migration
             $table->integer('producto_id')->unsigned();
             $table->foreign('producto_id')->references('id')->on('productos');
 
+            // Usuario asociado
+            $table->integer('usuario_id')->unsigned();
+            $table->foreign('usuario_id')->references('id')->on('users');
+            
             $table->DateTime('fecha');
             
             $table->double('precio')->default(0);

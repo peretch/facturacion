@@ -33,21 +33,27 @@
 							<div class="table-responsive table-condensed">
 								<table id="tabla_productos" cellspacing="0" width="97%" class="table-condensed table-striped table-bordered">
 									<tr>
-										<th width="120px">Código</th>
-										<th width="15%">Nombre</th>
-										<th width="15%">Familia producto</th>
-										<th>Descripción</th>
-										<th width="10%">Precio</th>
-										<th width="10%" colspan="2">Stock</th>                                      
+										<th class="text-center" width="120px"> @sortablelink('codigo', 'Código')</th>
+										<th class="text-center" width="200px"> @sortablelink('nombre', 'Nombre')</th>
+										<th class="text-center" width="180px">Familia producto</th>
+										<th class="text-center">Descripción</th>
+										<th class="text-center" width="100px">Precio</th>
+										<th class="text-center" width="10%" colspan="2">Stock</th>                                      
 									</tr>
 
 									@foreach($productos as $producto)
 										<tr>
-											<td><a href="/productos/detalle/{{ $producto->codigo}}">{{ $producto->codigo}}</a></td>
-											<td>{{ $producto->nombre}}</td>
-											<td>{{ $producto->familia->nombre}}</td>
-											<!--<td>{{ $producto->descripcion}}</td>-->
-											<td>
+											<td class="text-center"><a href="/productos/detalle/{{ $producto->codigo}}">{{ $producto->codigo}}</a></td>
+											<td class="text-center" title="{{$producto->nombre}}">
+												@if(strlen($producto->nombre) > 24)
+													{{ substr($producto->nombre, 0, 24) . "..."}}
+												@else
+													{{ $producto->nombre }}
+												@endif
+											</td>
+											<td class="text-center">{{ $producto->familia->nombre}}</td>
+											<!--<td class="text-center">{{ $producto->descripcion}}</td>-->
+											<td class="text-center">
 												{{ str_limit(str_replace('<br />','', $producto->descripcion), 80) }}
 
 												@if(strlen($producto->descripcion) > 80)
@@ -75,11 +81,14 @@
 												@endif
 											</td>
 											<td>
+												&nbsp;
 												{{ App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo }}
-												{{ $producto->precio}}
+												<span class="pull-right">
+													{{ $producto->precio}}
+												</span>
 											</td>
-											<td width="5%" class="text-center">{{ $producto->stock}}</td>
-											<td class="text-center" width="5%">
+											<td class="text-center">{{ $producto->stock}}</td>
+											<td class="text-center">
 												<a href="#formStock" id="{{$producto->codigo}}" data-toggle="modal" data-target="#formStock" onclick='$("#form_stock").attr("action", "/productos/{{$producto->codigo}}/ModificarStock");'>
 													<i class="fa fa-exchange" aria-hidden="true"></i>
 												</a>
@@ -89,7 +98,7 @@
 								</table>
 							</div>
 							<div class="text-center">
-								{{ $productos->links() }}
+								{!! $productos->appends(\Request::except('page'))->render() !!}
 							</div>
 						</div>
 					</div>

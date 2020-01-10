@@ -1,5 +1,5 @@
 @section('')
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.5/css/bootstrap.min.css" rel="stylesheet"/>
+    
 @endsection
 
 <!DOCTYPE html>
@@ -16,19 +16,20 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-        @if(Auth::user())
-            <link href="{{ asset(Auth::user()->preferencias->estilo) }}" rel="stylesheet">
-        @else
-            <link href="{{ asset(config('app.style')) }}" rel="stylesheet">
-        @endif
-        <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
         <link href="{{ asset('css/base.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/font-awesome.css') }}" rel="stylesheet">
 
         <link rel="icon" href="{{ asset('img/logo.jpg') }}">
 
         <!-- Scripts -->
         <script src="{{ asset('js/jquery-3.2.1.min.js') }}"></script>
         <script src="{{ asset('js/vue.js') }}"></script>
+        
+        @if(Auth::user())
+            <link href="{{ asset(Auth::user()->preferencias->estilo) }}" rel="stylesheet">
+        @else
+            <link href="{{ asset(config('app.style')) }}" rel="stylesheet">
+        @endif
         
         <script>
             window.Laravel = {!! json_encode([
@@ -39,21 +40,16 @@
     </head>
     <body>
         <div id="app">
-            <nav class="navbar navbar-default navbar-static-top ">
+            <nav class="navbar navbar-default navbar-static-top">
                 <div class="container">
-                    <div class="navbar-header">                        
+                    <div class="navbar-header">
                         @if( config('app.logo') == '')
                             <a href="/"><img class="logo default_logo"></a>
                         @else
                             <a href="/"><img src="{{asset( config('app.logo'))}}" class="logo"></a>
                         @endif
                         <!-- Collapsed Hamburger -->
-                        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                            <span class="sr-only">Toggle Navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                        </button>
+                        
                         <!-- Branding Image -->
                         <a class="navbar-brand" href="{{ url('/') }}">
                         </a>
@@ -85,20 +81,19 @@
                             @else
                                 <li>
                                     <a href="#" class="btn" data-toggle="modal" data-target="#NotificacionesStock">
-                                        <i class="fa fa-commenting" aria-hidden="true"></i>
                                         @if(session('notificaciones'))
-                                            <strong id="total_notificaciones">{{session('notificaciones')->count()}}</strong>
-                                        @else
-                                            0
+                                            <label id="total_notificaciones">
+                                                {{session('notificaciones')->count()}}
+                                                @if(session('notificaciones')->count() > 0)
+                                                    <i class="fa fa-envelope" aria-hidden="true"></i>
+                                                @else
+                                                    <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                                                @endif
+                                            </label>
                                         @endif
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="#" data-toggle="popover" data-content="Próximamente" data-trigger="focus" data-placement="bottom">
-                                        <i class="fa fa-envelope-o" aria-hidden="true"></i>
-                                        0
-                                    </a>
-                                </li>
+                                
                                 <li class="dropdown">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                         {{ Auth::user()->name }} <span class="caret"></span>

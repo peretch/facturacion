@@ -38,6 +38,8 @@ class CreateProductosTable extends Migration
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index(['codigo', 'codigo_de_barras', 'nombre']);
         });
     }
 

@@ -8,7 +8,12 @@
 				<div class="panel-heading">
 					<h4>Detalle de producto</h4>
 				</div>
-				<div class="panel-body">					
+				<div class="panel-body">
+					<span class="pull-right">
+						<a class="btn btn-sm btn-success" href="/productos/nuevo" class="btn btn-link">
+							<i class="fa fa-plus" aria-hidden="true"></i> Nuevo producto
+						</a>
+					</span>
 					<ul class="list-inline">
 						<li>
 							<a href="/" class="link_ruta">
@@ -40,6 +45,9 @@
 								</legend>								
 								<div class="form-group">
 									<table class="table table-condensed table-striped table-bordered" width="100%">
+										<tr>
+											<th class="text-center th-b" colspan="2">Información general</th>
+										</tr>
 										<tr>
 											<td width="30%">Código</td>
 											<td width="70%">
@@ -103,6 +111,11 @@
 												<!-- Se obtiene moneda predeterinada --> 
 												{{ App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo }}
 												{{ $producto->precio }}
+												<span class="pull-right">
+													<a href="#formStock" class="btn btn-sm" id="{{$producto->codigo}}" data-toggle="modal" data-target="#modalHistoricoPrecios" onclick='$("#form_stock").attr("action", "/productos/{{$producto->codigo}}/ModificarStock");'  title="Histórico de precios de venta para este producto">
+														<i class="fa fa-book" aria-hidden="true"></i>
+													</a>
+												</span>
 											</td>												
 										</tr>
 										<tr>
@@ -110,10 +123,10 @@
 											<td> 
 												{{ $producto->stock }}
 												<span class="pull-right">
-													<a href="#formStock" class="btn btn-sm" id="{{$producto->codigo}}" data-toggle="modal" data-target="#formStock" onclick='$("#form_stock").attr("action", "/productos/{{$producto->codigo}}/ModificarStock");'>
+													<a href="#formStock" class="btn btn-sm" id="{{$producto->codigo}}" data-toggle="modal" data-target="#formStock" onclick='$("#form_stock").attr("action", "/productos/{{$producto->codigo}}/ModificarStock");' title="Realizar un movimiento de stock">
 														<i class="fa fa-exchange" aria-hidden="true"></i>
 													</a>
-												</span>												
+												</span>
 											</td>
 										</tr>
 									</table>
@@ -129,21 +142,37 @@
 										<table class="table table-condensed table-striped table-bordered">
 											<thead>
 												<tr>
-													<th width="70px">Fecha</th>
-													<th width="70px">Hora</th>
-													<th width="40px">Cant.</th>
-													<th>Descripción</th>
-													<th width="75px">Usuario</th>
+													<th class="text-center" width="70px">Fecha</th>
+													<th class="text-center" width="70px">Hora</th>
+													<th class="text-center" width="40px">Cant.</th>
+													<th class="text-center">Descripción</th>
+													<th class="text-center">Comprobante</th>
+													<th class="text-center" width="75px">Usuario</th>
 												</tr>
 											</thead>
 											<tbody>
-												@foreach($movimientos->sortByDesc('fecha') as $m)										
+												@foreach($movimientos->sortByDesc('fecha') as $m)
 													<tr>
-														<td>{{ date_format( date_create($m->fecha), 'd/m/Y' ) }}</td>		
-														<td>{{ date_format( date_create($m->fecha), 'H:i:s' ) }}</td>		
+														<td>{{ date_format( date_create($m->fecha), 'd/m/Y' ) }}</td>
+														<td>{{ date_format( date_create($m->fecha), 'H:i:s' ) }}</td>
 														<td align="center">{{ $m->cantidad}}</td>
-														<td>{{ $m->descripcion}}</td>
-														<td>{{$m->usuario->name}}</td>
+														<td title="{{$m->descripcion}}">
+															@if(strlen($m->descripcion) > 36)
+																{{ substr($m->descripcion, 0, 36) . "..."}}
+															@else
+																{{ $m->descripcion }}
+															@endif
+														</td>
+														<td class="text-center">
+															@if($m->comprobante_id)
+																<a href="/comprobantes/detalle/{{$m->comprobante_id}}">
+																	{{ $m->comprobante->tipo->nombre }}
+																</a>
+															@else
+																-
+															@endif
+														</td>
+														<td class="text-center">{{$m->usuario->email}}</td>
 													</tr>
 												@endforeach
 											</tbody>
@@ -193,7 +222,7 @@
 													</td>
 												</tr>												
 											</table>
-										</div>			                        	
+										</div>
 									</div>
 									<div class="form-group">
 										<input class="btn btn-primary" type="submit" value="Guardar configuración">
@@ -274,7 +303,7 @@
 									<tr>
 										<th>Descripción</th>
 										<td>
-											<textarea class="form-control input-sm" id="txtDescripcion" rows="3" placeholder="Descripción del producto" name="descripcion">{{$producto->descripcion}}</textarea>
+											<textarea class="form-control input-sm" id="txtDescripcion" rows="3" placeholder="Descripción del producto" name="descripcion">{{str_replace('<br />','', $producto->descripcion)}}</textarea>
 										</td>
 										
 									</tr>
@@ -295,6 +324,44 @@
 				</div>
 			</div>
 
+			<div class="modal-footer">
+			</div>
+		</div>
+	</div>
+</div>
+<div class="modal fade" id="modalHistoricoPrecios" role="dialog">
+	<div class="modal-dialog modal-sm">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4>
+					Histórico de precios de venta
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+				</h4>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table table-condensed table-striped table-bordered">
+						<thead>
+							<tr>
+								<th>Fecha</th>
+								<th>Precio ({{App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo}})</th>
+								<th>Usuario</th>
+							</tr>
+						</thead>
+						<tbody>
+							@foreach($precios_historico as $p)
+							<tr>
+								<td>
+									{{ date_format( date_create($p->fecha), 'd/m/Y' ) }}								
+								</td>
+								<td>{{App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo}} {{ $p->precio }}</td>
+								<td>{{ App\User::where('id', $p->usuario_id)->first()->email }}</td>
+							</tr>
+							@endforeach
+						</tbody>
+					</table>					
+				</div>
+			</div>
 			<div class="modal-footer">
 			</div>
 		</div>

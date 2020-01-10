@@ -45,15 +45,24 @@ Route::group(['middleware'=>'auth'], function () {
 	Route::get('/comprobantes/', 'ComprobanteController@index');
 	Route::get('/comprobantes/consultas', 'ComprobanteController@consultas');
 	Route::get('/comprobantes/nuevo', 'ComprobanteController@nuevo');
-	Route::get('/comprobantes/detalle/{comprobanteId}', 'ComprobanteController@detalle');
-	Route::get('/comprobantes/imprimir/{comprobanteId}', 'ComprobanteController@imprimir');
+	Route::get('/comprobantes/detalle/{facturaId}', 'ComprobanteController@detalle');
+	Route::get('/comprobantes/imprimir/{facturaId}', 'ComprobanteController@imprimir');
 	Route::post('/comprobantes/guardar', 'ComprobanteController@guardar');
+	
+	Route::get('/comprobantes/vencimientos', 'ComprobanteController@vencimientos');
+	Route::get('/comprobantes/recibos/nuevo/{cliente_id}', 'ComprobanteController@nuevoRecibo');
+	Route::post('/comprobantes/recibos/guardar', 'ComprobanteController@guardarRecibo');
 
 	Route::get('/clientes/', 'ClienteController@index');
 	Route::get('/clientes/nuevo', 'ClienteController@nuevo');
 	Route::post('/clientes/guardar', 'ClienteController@guardar');
 	Route::get('/clientes/buscar', 'ClienteController@buscar');
 	Route::get('/clientes/detalle/{clienteId}', 'ClienteController@detalle');
+
+	Route::get('/proveedores/', 'ProveedorController@index');
+	Route::get('/proveedores/nuevo', 'ProveedorController@nuevo');
+	Route::post('/proveedores/guardar', 'ProveedorController@guardar');
+	Route::get('/proveedores/detalle/{proveedor_id}', 'ProveedorController@detalle');
 
 	Route::get('/indicadores/masVendidos/{mes}', 'IndicadoresController@masVendidos');
 });

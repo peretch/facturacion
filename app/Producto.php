@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 use App\FamiliaProducto;
 use App\LineaProducto;
 use App\TasaIva;
@@ -15,11 +16,16 @@ class Producto extends Model
 {
 
     use SoftDeletes;
+    use Sortable;
 
     #Tabla asociada
     protected $table = 'productos';
 
     protected $fillable = [
+        'codigo', 'codigo_de_barras','stock', 'nombre','descripcion', 'precio', 'tasa_iva_id'
+    ];
+
+    public $sortable = [
         'codigo', 'codigo_de_barras','stock', 'nombre','descripcion', 'precio', 'tasa_iva_id'
     ];
 
@@ -37,9 +43,9 @@ class Producto extends Model
         return $this->belongsTo(TasaIva::class, 'tasa_iva_id');
     }
 
-	public function scopeBuscarPorCodigo($query, $codigo){
-		return $query->where('codigo','=',$codigo);
-	}
+    public function scopeBuscarPorCodigo($query, $codigo){
+        return $query->where('codigo','=',$codigo);
+    }
 
     public function scopeBuscarPorCodigoDeBarras($query, $codigo_de_barras){
         if($codigo_de_barras == null){
@@ -47,7 +53,7 @@ class Producto extends Model
         }else{
             return $query->where('codigo_de_barras','=',$codigo_de_barras);
         }
-	}
+    }
 
     public function scopeBuscarPorId($query, $id){
         return $query->where('id','=', $id);
@@ -67,9 +73,19 @@ class Producto extends Model
     public function registrarCambioPrecio(){
         DB::table('producto_precio')->insert([
             'producto_id' => $this->id,
+            'usuario_id' => Auth::user()->id,
             'fecha' => date("Y-m-d H:i:s"),
             'precio' => $this->precio
         ]);
+    }
+
+    public function preciosHistorico(){
+        return DB::table('producto_precio')->select(
+            'fecha',
+            'usuario_id',
+            'precio'
+        )->where('producto_id', $this->id)
+        ->orderBy('fecha', 'desc')->get();
     }
 
     public function scopeFiltrar($query, $texto){
@@ -82,6 +98,6 @@ class Producto extends Model
     }
 
     public function scopeFiltrarPorCodigo($query, $codigo, $boolean = 'or'){
-		return $query->where('codigo', 'like', '%'.$codigo.'%', $boolean);
-	}
+        return $query->where('codigo', 'like', '%'.$codigo.'%', $boolean);
+    }
 }

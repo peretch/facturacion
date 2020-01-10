@@ -7,9 +7,15 @@ a:focus{
 }
 
 .alert-success {
-    background-color: #73a25f;
+    background-color: #9cc18c;
     border-color: #4a7b20;
-    color: #fdfffd;
+    color: #396d39;
+}
+
+.alert-warning {
+    background-color: #e8d987;
+    border-color: #eac984;
+    color: #77613a;
 }
 
 .btn-success {
@@ -25,4 +31,57 @@ a:focus{
 
 .div-detalle-comprobante{
   height: 300px;    
+}
+
+.td_iva, .td_total, .td_subTotal{
+  text-align: right;
+}
+
+.td-danger{
+  background-color: #ffebe6;
+  color: #445863;
+}
+
+.table-striped > tbody > tr:nth-child(odd).td-danger > td {
+  background-color: #fff3f0;
+  color: #445863;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.td-danger {
+  background-color: #ffebe6;
+  color: #445863;
+}
+
+.td-warning{
+  background-color: #fff2bc;
+  color: #445863;
+}
+
+.table-striped > tbody > tr:nth-child(odd).td-warning > td {
+  background-color: #fff5cc;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.td-warning {
+  background-color: #fff2bc;
+}
+
+.td-success{
+  background-color: #d9ffb3;
+  color: #445863;
+}
+
+.table-striped > tbody > tr:nth-child(odd).td-success > td {
+  background-color: #e6ffcc;
+}
+
+.table-striped > tbody > tr:nth-child(odd) > td.td-success {
+  background-color: #d9ffb3;
+}
+
+.danger{
+    color: red;
+}
+
+.warning{
+    color: #d69938;
 }

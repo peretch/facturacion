@@ -22,10 +22,21 @@ class CreateClientesTable extends Migration
             $table->string('rut')->nullable();
             
             $table->string('mail')->nullable();
-            $table->string('direccion')->nullable();
+            $table->string('direccion')->nullable(); 
+            
+            $table->string('genero')->nullable(); 
+
+            // Descuento asociado
+            $table->integer('descuento_id')->unsigned()->nullable();
+            $table->foreign('descuento_id')->references('id')->on('descuentos');
+
+            // Plazo factura por defecto
+            $table->integer('plazo_factura')->nullable();
 
             $table->softDeletes();
             $table->timestamps();
+
+            $table->index(['mail', 'rut']);
         });
     }
 

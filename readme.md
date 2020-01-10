@@ -1,4 +1,7 @@
-# peretch / facturacion
+# Sistema de facturación e inventario AMVstore
 
-Este producto fue creado con el fin de ofrecer una solución a empresas con manejo de inventario, clientes y comprobantes.
+## Primera etapa
 
+- Inventario (Un único tipo de producto, alta/baja stock)
+- Facturación (Registro de ventas, impresión de factura)
+- Clientes (registro de clientes, historial de compras de un cliente)

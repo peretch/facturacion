@@ -39,8 +39,10 @@
 					<ul class="dropdown-menu">
 						<li><a href="/comprobantes/"><i class="fa fa-table" aria-hidden="true"></i> &nbsp Vista general</a></li>
 						<li><a href="/comprobantes/nuevo"><i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp  Nuevo comprobante</a></li>
-						<li class="divider"></li>						
+						<li class="divider"></li>
 						<li><a href="#"><i class="fa fa-database" aria-hidden="true"></i> &nbsp  Consultas</a></li>
+						<li class="divider"></li>
+						<li><a href="/comprobantes/vencimientos"><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp  Vencimientos</a></li>
 					</ul>
 				</li>
 				<li class="dropdown">
@@ -69,8 +71,8 @@
 						<b class="caret"></b>
 					</a>
 					<ul class="dropdown-menu">						
-						<li><a href=""><i class="fa fa-table" aria-hidden="true"></i> &nbsp Vista general</a></li>
-						<li><a href=""><i class="fa fa-truck" aria-hidden="true"></i> &nbsp  Nuevo proveedor</a></li>
+						<li><a href="/proveedores"><i class="fa fa-table" aria-hidden="true"></i> &nbsp Vista general</a></li>
+						<li><a href="/proveedores/nuevo"><i class="fa fa-truck" aria-hidden="true"></i> &nbsp  Nuevo proveedor</a></li>
 						<li class="divider"></li>
 					</ul>
 				</li>
