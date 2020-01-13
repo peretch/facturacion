@@ -31,13 +31,24 @@ body{
 
 .panel-default>.panel-heading {
     color: #fff;
-    #background-color: #bb9898;
     background-color: #2C3949;
     border-color: #d3e0e9;
 }
 
 .navbar-default .navbar-collapse, .navbar-default .navbar-form {
     border-color: #000;
+}
+
+.navbar-default .navbar-nav>li>a, .navbar-default .navbar-text {
+  color: #ccc;
+}
+
+.navbar-default .navbar-nav>li>a:hover, .navbar-default .navbar-text {
+  color: #fff;
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-text {
+  color: #fff;
 }
 
 .btn-primary {
