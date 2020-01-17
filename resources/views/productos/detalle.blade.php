@@ -119,6 +119,16 @@
 											</td>												
 										</tr>
 										<tr>
+											<td>Tasa de IVA</td>
+											<td>
+												{{ $producto->iva->nombre }}
+												<span class="pull-right">
+													 ( {{$producto->iva->tasa}} % )
+
+												</span>
+											</td>												
+										</tr>
+										<tr>
 											<td>Stock</td>
 											<td> 
 												{{ $producto->stock }}
