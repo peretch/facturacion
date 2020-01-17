@@ -47,7 +47,7 @@ class Cliente extends Model
 
 		$saldo_positivo = 0;
 
-		$total = $saldo_positivo - $saldo_negativo;
+		$total = $saldo_negativo - $saldo_positivo;
 		return $total;
 	}
 }
