@@ -40,7 +40,7 @@
 						<li><a href="/comprobantes/"><i class="fa fa-table" aria-hidden="true"></i> &nbsp Vista general</a></li>
 						<li><a href="/comprobantes/nuevo"><i class="fa fa-plus-square" aria-hidden="true"></i> &nbsp  Nuevo comprobante</a></li>
 						<li class="divider"></li>
-						<li><a href="#"><i class="fa fa-database" aria-hidden="true"></i> &nbsp  Consultas</a></li>
+						<li><a href="/comprobantes/reportes"><i class="fa fa-database" aria-hidden="true"></i> &nbsp  Reportes</a></li>
 						<li class="divider"></li>
 						<li><a href="/comprobantes/vencimientos"><i class="fa fa-calendar" aria-hidden="true"></i> &nbsp  Vencimientos</a></li>
 					</ul>

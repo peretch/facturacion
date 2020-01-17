@@ -55,7 +55,7 @@
 										<i class="fa fa-plus-square" aria-hidden="true"></i>
 									</span>
 								</a>
-								<a href="#" class="list-group-item" data-toggle="popover" data-content="Próximamente" data-trigger="hover" >
+								<a href="/comprobantes/reportes" class="list-group-item" data-toggle="popover" data-content="Próximamente" data-trigger="hover" >
 									Reportes
 									<span class="pull-right">
 										<i class="fa fa-database" aria-hidden="true"></i>
