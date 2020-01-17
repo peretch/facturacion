@@ -37,4 +37,17 @@ class Cliente extends Model
 	public function scopeFiltrarPorMail($query, $texto, $boolean = 'or'){
 		return $query->where('mail','like', '%'.$texto.'%', $boolean);
 	}
+
+	public function getSaldo(){
+		$facturas_inpagas = Factura::buscarPorCliente($this->id)->where('deuda_actual', '>', 0)->get();
+
+		$saldo_negativo = $facturas_inpagas->reduce(function ($saldo, $item) {
+			return $saldo + $item->deuda_actual;
+		});
+
+		$saldo_positivo = 0;
+
+		$total = $saldo_positivo - $saldo_negativo;
+		return $total;
+	}
 }

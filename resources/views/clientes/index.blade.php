@@ -36,7 +36,7 @@
 								<th class="text-center">Dirección</th>
 								<th width="120px" class="text-center">Teléfono</th>
 								<th class="text-center">E-Mail</th>
-								<th width="120px" class="text-center">RUT</th>
+								<th width="120px" class="text-center">Deuda</th>
 							</tr>
 
 							@foreach($clientes as $cliente)
@@ -65,11 +65,8 @@
 								<td>{{$cliente->telefono}}</td>								
 								<td>{{$cliente->mail}}</td>
 								<td class="text-center">
-									@if($cliente->rut)
-										{{$cliente->rut}}
-									@else
-										-
-									@endif
+									{{ App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo }}
+									{{ $cliente->getSaldo() * -1 }}
 								</td>
 							</tr>
 							@endforeach
