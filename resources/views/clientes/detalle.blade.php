@@ -119,6 +119,15 @@
 												</td>												
 											</tr>
 										@endif
+										<tr>
+											<td>
+												Deuda
+											</td>
+											<td>
+												{{ App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo }}
+												{{ $cliente->getSaldo() * -1 }}
+											</td>
+										</tr>
 									</table>
 								</div>								
 							</div>
