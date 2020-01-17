@@ -35,12 +35,13 @@ class ProductoController extends Controller
 
 	public function buscar(Request $request){
 		$texto = $request->texto;
-		$productos = Producto::BuscarPorCodigo($texto)->get();
+		$productos = Producto::BuscarPorCodigo($texto)->with('iva')->get();
 		if(count($productos) == 0){	        
 			$productos = Producto::FiltrarPorCodigo($texto)
 							->FiltrarPorNombre($texto)
+							->with('iva')
 							->get();
-		}        
+		}
 		return Response()->json([
 			'productos' => $productos
 		]);

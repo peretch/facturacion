@@ -77,7 +77,6 @@ $(document).ready(function (){
 			//url = "{{ url('productos/buscar?texto=') }}" + str;
 			url = buscar_prodcto_url + str;
 			delay(function(){
-				console.log("voy");
 				$.get(url , function( data ){
 					$("#divData").html( data );
 					var productos = data["productos"];
@@ -145,7 +144,6 @@ $(document).ready(function (){
 		var codigo = $(this).parents("tr").find(".td_codigo").html();
 		precio = precio.replace(",", ".");
 		modificarPrecio(codigo, precio);
-		console.log($(this));
 		$(this).focus();
 	});
 
@@ -170,7 +168,6 @@ $(document).ready(function (){
 		var url = buscar_cliente_url + str;
 		$.get(url , function( data ){			    
 			var clientes = data["clientes"];
-			console.log(clientes);
 			$("#tablaClientes").html("");
 			for(i=0; i < clientes.length; i++){
 				var cliente_id = clientes[i]["id"];
@@ -257,7 +254,7 @@ function agregarArticulo(data){
 			if(producto_stock > 0){
 				var producto_nombre = producto["nombre"];
 				var producto_precio = producto["precio"];
-				var producto_iva = 0.22;
+				var producto_iva = producto["iva"]["tasa"]/100;
 				var producto_cantidad = 1;
 
 				listadoArticulos[listadoArticulos.length] = {
