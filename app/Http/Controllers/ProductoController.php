@@ -100,8 +100,10 @@ class ProductoController extends Controller
 		$producto = Producto::BuscarPorCodigo($producto_codigo)->firstOrFail();
 		$familias_producto = FamiliaProducto::orderBy('nombre')->get();
 		$movimientos = $producto->LineasProducto()->orderBy('fecha', 'desc')->paginate(6);
-		$precios_historico = $producto->preciosHistorico();		
-		return view('productos.detalle')->with(compact('producto', 'movimientos', 'familias_producto', 'precios_historico'));
+		$precios_historico = $producto->preciosHistorico();
+		$tasas_iva = TasaIva::all();
+
+		return view('productos.detalle')->with(compact('producto', 'movimientos', 'familias_producto', 'precios_historico', 'tasas_iva'));
 	}
 
 	public function editar(Request $request){
@@ -118,9 +120,10 @@ class ProductoController extends Controller
 			if($producto->nombre != $request->nombre){
 				$producto->nombre  = $request->nombre;
 			}
-			$producto->codigo_de_barras  = $request->codigo_de_barras;
-			$producto->descripcion  = nl2br($request->descripcion);
-			$producto->familiaProducto_id  = $request->familia_producto;            
+			$producto->codigo_de_barras  	= $request->codigo_de_barras;
+			$producto->descripcion  		= nl2br($request->descripcion);
+			$producto->familiaProducto_id  	= $request->familia_producto;
+			$producto->tasa_iva_id  		= $request->tasa_iva;
 
 			if($request->precio!='' || $request->precio>0){
 				if($request->precio != $producto->precio){

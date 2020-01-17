@@ -309,13 +309,27 @@
 									</tr>
 									<tr>
 										<th>
-											Precio de venta ({{ App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo }})
+											Precio de venta ({{ App\Moneda::find(config('app.monedaPreferida'))->first()->simbolo }}) (Sin IVA)
 										</th>
 										<td>
-											<!-- Se obtiene moneda predeterinada --> 
+											<!-- Se obtiene moneda predeterinada -->
 											<input id="txtPrecio" class="form-control input-sm" name="precio" placeholder="Precio en U$S" value="{{$producto->precio}}">
 										</td>										
-									</tr>									
+									</tr>
+									<tr>
+										<th>Tipo de iva</th>
+										<td>
+											<select name="tasa_iva" class='form-control'>
+												@foreach($tasas_iva as $tasa_iva)
+													@if($tasa_iva->id == $producto->tasa_iva_id)
+														<option value='{{$tasa_iva->id}}' selected='true'>{{$tasa_iva->nombre}}</opition>
+													@else
+														<option value='{{$tasa_iva->id}}'>{{$tasa_iva->nombre}}</opition>
+													@endif
+												@endforeach
+											</select>
+										</td>
+									</tr>
 								</table>
 								<input type="submit" name="" value="Guardar cambios" class="btn btn-primary btn-block">
 							</div>					
