@@ -1,4 +1,4 @@
-# Sistema de facturación e inventario AMVstore
+# Sistema de facturación e inventario
 
 ## Primera etapa
 
