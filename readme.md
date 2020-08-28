@@ -1,10 +1,8 @@
 # Sistema de facturación e inventario
 
-## Primera etapa
+## Live DEMO
 
-- Inventario (Un único tipo de producto, alta/baja stock)
-- Facturación (Registro de ventas, impresión de factura)
-- Clientes (registro de clientes, historial de compras de un cliente)
+http://facturacion.peretch.com/productos
 
 ## Instalacion
 1. Clonar repo
